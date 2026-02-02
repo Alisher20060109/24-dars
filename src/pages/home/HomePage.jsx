@@ -12,19 +12,13 @@ import gantel from "../../assets/gantel.png";
 import { FaStar } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import useFetch from "../../hooks/useFetch";
 
 export default function HomePage() {
   const [openCategory, setOpenCategory] = useState(null);
 
-  const getData = async () => {
-    let res = await axios.get(`https://fakestoreapi.com/products`);
-    return res;
-  };
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: getData,
-  });
+  const { data, isLoading, error } = useFetch({url: `products`, key: ["products"]});
+   
 
   const products = data?.data || [];
   const categories = products.map((el) => el.category);
